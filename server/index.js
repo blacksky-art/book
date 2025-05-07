@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import connectToDatabase from './database.js';
 import productRoutes from './routes/productRoutes.js';
-
+import userRoutes from './routes/userRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 
 dotenv.config();
 
@@ -15,12 +16,15 @@ app.use(cors());
 connectToDatabase();
 
 // Routes
-app.use('/api/products', productRoutes)
+app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes); 
+app.use('/api/orders', orderRoutes);
+
+app.get('/', (req, res) => {
+    res.send('Api is running');
+});
 
 const PORT = 5000;
-app.get('/',(req,res) => {
-    res.send('Api is running ');
-});
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 export default app;
